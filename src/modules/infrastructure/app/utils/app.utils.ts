@@ -1,4 +1,5 @@
 import { BadRequestException, InternalServerErrorException, HttpException } from '@nestjs/common';
+import { RetryOptions } from 'src/modules/infrastructure/app/types/app.types';
 
 export function throwRandomException(probability = 0.3): void {
   if (Math.random() > probability) return;
@@ -24,3 +25,45 @@ export const configureCorsAllowedOriginsList = (
 
 export const sleep = async (duration: number) =>
   new Promise(resolve => setTimeout(resolve, duration));
+
+export async function retryWithExponentialBackoff<T>(
+  callback: () => Promise<T>,
+  options: RetryOptions = {},
+): Promise<T> {
+  const {
+    retries = 5,
+    baseDelayMs = 500,
+    maxDelayMs = 10_000,
+    factor = 2,
+    jitter = true,
+    shouldRetry = () => true,
+  } = options;
+
+  let attempt = 0;
+
+  while (true) {
+    try {
+      return await callback();
+    } catch (error) {
+      attempt++;
+
+      if (attempt > retries || !shouldRetry(error)) {
+        throw error;
+      }
+
+      if (error.status) {
+        console.log(
+          `Received response with status code ${error.status}. Exponential retry was triggered...`,
+        );
+      }
+
+      let delay = Math.min(baseDelayMs * factor ** (attempt - 1), maxDelayMs);
+
+      if (jitter) {
+        delay = Math.random() * delay;
+      }
+
+      await sleep(delay);
+    }
+  }
+}

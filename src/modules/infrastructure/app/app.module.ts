@@ -1,6 +1,6 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { JwtModule, JwtModuleOptions, JwtService } from '@nestjs/jwt';
+import { JwtModule, JwtModuleOptions } from '@nestjs/jwt';
 import { WinstonModule, WinstonModuleOptions } from 'nest-winston';
 import { LoggerModule } from 'src/modules/infrastructure/logger/logger.module';
 import { LoggerMiddleware } from 'src/modules/infrastructure/logger/middlewares/logger.middleware';
@@ -16,9 +16,12 @@ import { buildJwtModuleOptions } from 'src/modules/infrastructure/jwt/jwt.consta
 import { buildConfigModuleOptions } from 'src/modules/infrastructure/config/config.constants';
 import { AuthModule } from 'src/modules/auth/auth.module';
 import { OrderModule } from 'src/modules/order/order.module';
+import { ScheduleModule } from '@nestjs/schedule';
+import { CodeJudgeModule } from 'src/modules/codejudge/codejudge.module';
 
 @Module({
   imports: [
+    ScheduleModule.forRoot(),
     ConfigModule.forRoot(buildConfigModuleOptions()),
     JwtModule.registerAsync({
       global: true,
@@ -41,6 +44,7 @@ import { OrderModule } from 'src/modules/order/order.module';
     AuthModule,
     UserModule,
     OrderModule,
+    CodeJudgeModule,
   ],
   providers: [
     {
