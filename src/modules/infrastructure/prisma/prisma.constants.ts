@@ -1,0 +1,1 @@
+export const ADAPTER_TOKEN = 'ADAPTER_TOKEN';

@@ -1,0 +1,2009 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/api/v1/auth/user": {
+      "get": {
+        "operationId": "AuthController_user",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The authenticated user.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/ApiResponseEntity"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/UserPublicEntity"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The user is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The user is forbidden to perform this action.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error was occured.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/api/v1/auth/login": {
+      "post": {
+        "operationId": "AuthController_login",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User was successfully logged in.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/ApiResponseEntity"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/UserPublicEntity"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Cannot log in the user.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Cannot log in the user. Invalid data was provided.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error was occured.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/api/v1/auth/refresh": {
+      "post": {
+        "operationId": "AuthController_refresh",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "User refresh and access tokens were successfully updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/ApiResponseEntity"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/UserPublicEntity"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The user is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The user is forbidden to perform this action.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Cannot update user's refresh and access tokens. Invalid data was provided.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error was occured.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/api/v1/auth/logout": {
+      "delete": {
+        "operationId": "AuthController_logout",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "The user was successfully logged out.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/ApiResponseEntity"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/UserPublicEntity"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The user is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The user is forbidden to perform this action.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Cannot log out the user. Invalid data was provided.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error was occured.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/api/v1/users": {
+      "get": {
+        "operationId": "UserController_findAll",
+        "parameters": [
+          {
+            "name": "ids",
+            "required": false,
+            "in": "query",
+            "description": "Filter by user IDs",
+            "schema": {
+              "example": [
+                "550e8400-e29b-41d4-a716-446655440000"
+              ],
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "emails",
+            "required": false,
+            "in": "query",
+            "description": "Filter by email addresses",
+            "schema": {
+              "example": [
+                "john@example.com",
+                "jane@example.com"
+              ],
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "firstNames",
+            "required": false,
+            "in": "query",
+            "description": "Filter by first names",
+            "schema": {
+              "example": [
+                "John",
+                "Jane"
+              ],
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "lastNames",
+            "required": false,
+            "in": "query",
+            "description": "Filter by last names",
+            "schema": {
+              "example": [
+                "Doe",
+                "Smith"
+              ],
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "emailContains",
+            "required": false,
+            "in": "query",
+            "description": "Search for emails containing this string",
+            "schema": {
+              "example": "gmail.com",
+              "type": "string"
+            }
+          },
+          {
+            "name": "firstNameContains",
+            "required": false,
+            "in": "query",
+            "description": "Search for first names containing this string",
+            "schema": {
+              "example": "John",
+              "type": "string"
+            }
+          },
+          {
+            "name": "lastNameContains",
+            "required": false,
+            "in": "query",
+            "description": "Search for last names containing this string",
+            "schema": {
+              "example": "Doe",
+              "type": "string"
+            }
+          },
+          {
+            "name": "phoneContains",
+            "required": false,
+            "in": "query",
+            "description": "Search for phones containing this string",
+            "schema": {
+              "example": "+380",
+              "type": "string"
+            }
+          },
+          {
+            "name": "orderBy",
+            "required": true,
+            "in": "query",
+            "description": "Sort order (field:direction)",
+            "schema": {
+              "default": "createdAt:desc",
+              "example": "createdAt:desc",
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "required": true,
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": true,
+            "in": "query",
+            "description": "Number of items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 10,
+              "example": 10,
+              "type": "number"
+            }
+          },
+          {
+            "name": "roles",
+            "required": false,
+            "in": "query",
+            "description": "Filter by user roles",
+            "schema": {
+              "example": [
+                "User",
+                "Admin"
+              ],
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "User",
+                  "Admin",
+                  "Manager"
+                ]
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/PaginatedApiResponseEntity"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/UserPublicEntity"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The user is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The user is forbidden to perform this action.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error was occured.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Users"
+        ]
+      },
+      "post": {
+        "operationId": "UserController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User was successfully created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/ApiResponseEntity"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/UserPublicEntity"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The user is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The user is forbidden to perform this action.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Cannot create user. Invalid data was provided.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error has occured.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Users"
+        ]
+      }
+    },
+    "/api/v1/users/{id}": {
+      "get": {
+        "operationId": "UserController_findById",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "The uuid of the user to be found.",
+            "schema": {
+              "example": "23fbed56-1bb9-40a0-8977-2dd0f0c6c31f"
+            }
+          },
+          {
+            "name": "emailContains",
+            "required": false,
+            "in": "query",
+            "description": "Search for email containing this string",
+            "schema": {
+              "example": "gmail.com",
+              "type": "string"
+            }
+          },
+          {
+            "name": "firstNameContains",
+            "required": false,
+            "in": "query",
+            "description": "Search for first name containing this string",
+            "schema": {
+              "example": "John",
+              "type": "string"
+            }
+          },
+          {
+            "name": "lastNameContains",
+            "required": false,
+            "in": "query",
+            "description": "Search for last name containing this string",
+            "schema": {
+              "example": "Doe",
+              "type": "string"
+            }
+          },
+          {
+            "name": "phoneContains",
+            "required": false,
+            "in": "query",
+            "description": "Search for phones containing this string",
+            "schema": {
+              "example": "+380",
+              "type": "string"
+            }
+          },
+          {
+            "name": "role",
+            "required": false,
+            "in": "query",
+            "description": "Filter by user role",
+            "schema": {
+              "example": "Admin",
+              "type": "string",
+              "enum": [
+                "User",
+                "Admin",
+                "Manager"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The user with requested id.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/ApiResponseEntity"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/UserPublicEntity"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The user is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The user is forbidden to perform this action.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The user with the requested id was not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error was occured.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Users"
+        ]
+      },
+      "put": {
+        "operationId": "UserController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "The uuid of the user to be updated",
+            "schema": {
+              "example": "23fbed56-1bb9-40a0-8977-2dd0f0c6c31f"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User was successfully updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/ApiResponseEntity"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/UserPublicEntity"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The user is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The user is forbidden to perform this action.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The user with the requested id was not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Cannot update user. Invalid data was provided.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error was occured.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Users"
+        ]
+      },
+      "delete": {
+        "operationId": "UserController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "The id of the user to be deleted",
+            "schema": {
+              "example": "23fbed56-1bb9-40a0-8977-2dd0f0c6c31f"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User was successfully removed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/ApiResponseEntity"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/UserPublicEntity"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The user is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The user is forbidden to perform this action.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The user with the requested id was not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error was occured.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Users"
+        ]
+      }
+    },
+    "/api/v1/users/{id}/orders": {
+      "get": {
+        "operationId": "UserController_findAllUserOrders",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "The uuid of the user to be found.",
+            "schema": {
+              "example": "23fbed56-1bb9-40a0-8977-2dd0f0c6c31f"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of orders",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/PaginatedApiResponseEntity"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/OrderEntity"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The user is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The user is forbidden.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The user with the requested id was not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error occurred.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Users"
+        ]
+      }
+    },
+    "/api/v1/orders": {
+      "get": {
+        "operationId": "OrderController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The list of orders",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/PaginatedApiResponseEntity"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/OrderEntity"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The user is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The user is forbidden.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error occurred.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Orders"
+        ]
+      },
+      "post": {
+        "operationId": "OrderController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrderDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Order was successfully created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/ApiResponseEntity"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/OrderEntity"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The user is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The user is forbidden.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Cannot create order. Invalid data provided.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error occurred.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Orders"
+        ]
+      }
+    },
+    "/api/v1/orders/{id}": {
+      "get": {
+        "operationId": "OrderController_findById",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "The uuid of the order to be found.",
+            "schema": {
+              "example": "23fbed56-1bb9-40a0-8977-2dd0f0c6c31f"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The order with requested id.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/ApiResponseEntity"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/OrderEntity"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The user is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The user is forbidden.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The order was not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error occurred.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Orders"
+        ]
+      },
+      "put": {
+        "operationId": "OrderController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "The uuid of the order to be updated",
+            "schema": {
+              "example": "23fbed56-1bb9-40a0-8977-2dd0f0c6c31f"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateOrderDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Order was successfully updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/ApiResponseEntity"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/OrderEntity"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The user is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The user is forbidden.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Order not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Cannot update order. Invalid data provided.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error occurred.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Orders"
+        ]
+      },
+      "delete": {
+        "operationId": "OrderController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "The id of the order to be deleted",
+            "schema": {
+              "example": "23fbed56-1bb9-40a0-8977-2dd0f0c6c31f"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Order was successfully removed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/ApiResponseEntity"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/OrderEntity"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The user is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The user is forbidden.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Order not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error occurred.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponseEntity"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Orders"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "E-Commerce Order Management API",
+    "description": "RESTful API for managing users and orders in an e-commerce system",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Contact API Support",
+      "url": "https://t.me/kalyonekenobe",
+      "email": "oleksandr.ihumnov@ukma.edu.ua"
+    }
+  },
+  "tags": [],
+  "servers": [
+    {
+      "url": "http://localhost/api/v1",
+      "description": "Development server"
+    },
+    {
+      "url": "https://api.ukmashop.com/api/v1",
+      "description": "Production server"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "ApiResponseEntity": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "data": {
+            "type": "object"
+          },
+          "message": {
+            "type": "string",
+            "example": "Operation completed successfully"
+          },
+          "errors": {
+            "type": "object",
+            "example": {
+              "email": "Invalid email"
+            }
+          }
+        },
+        "required": [
+          "success",
+          "data"
+        ]
+      },
+      "UserPublicEntity": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the user (UUID v4)",
+            "format": "uuid",
+            "example": "550e8400-e29b-41d4-a716-446655440000"
+          },
+          "email": {
+            "type": "string",
+            "description": "User email address used for login and communication",
+            "format": "email",
+            "example": "user@ukmashop.com"
+          },
+          "firstName": {
+            "type": "string",
+            "description": "User first name",
+            "example": "John"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "User last name",
+            "example": "Doe"
+          },
+          "phone": {
+            "type": "object",
+            "description": "User phone number in international format (10–15 digits, optional + prefix)",
+            "example": "+1234567890"
+          },
+          "role": {
+            "type": "string",
+            "description": "Role assigned to the user that determines access permissions",
+            "enum": [
+              "User",
+              "Admin",
+              "Manager"
+            ],
+            "example": "User"
+          },
+          "isActive": {
+            "type": "boolean",
+            "description": "Indicates whether the user account is currently active",
+            "example": true
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Date and time when the user account was created (ISO 8601 format)",
+            "example": "2024-01-15T10:30:00Z"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Date and time when the user account was last updated (ISO 8601 format)",
+            "example": "2024-01-20T14:45:00Z"
+          }
+        },
+        "required": [
+          "id",
+          "email",
+          "firstName",
+          "lastName",
+          "phone",
+          "role",
+          "isActive",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "ApiErrorResponseEntity": {
+        "type": "object",
+        "properties": {
+          "timestamp": {
+            "type": "string",
+            "example": "2026-02-15T21:24:28.191Z"
+          },
+          "path": {
+            "type": "string",
+            "example": "/api/v1/endpoint"
+          },
+          "success": {
+            "type": "boolean",
+            "example": false
+          },
+          "message": {
+            "type": "string",
+            "example": "An error occured on server"
+          },
+          "data": {
+            "type": "object",
+            "nullable": true,
+            "example": null,
+            "additionalProperties": {}
+          },
+          "errors": {
+            "type": "object",
+            "example": {
+              "server": [
+                "An error occured on server"
+              ]
+            },
+            "additionalProperties": {}
+          }
+        },
+        "required": [
+          "timestamp",
+          "path",
+          "success",
+          "message",
+          "data",
+          "errors"
+        ]
+      },
+      "LoginDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "object",
+            "description": "The email of the user",
+            "example": "oleksandr.igumnov@gmail.com",
+            "format": "email"
+          },
+          "password": {
+            "type": "object",
+            "description": "User's password",
+            "example": "Password123"
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ]
+      },
+      "PaginatedApiResponseEntity": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "data": {
+            "type": "object"
+          },
+          "message": {
+            "type": "string",
+            "example": "Operation completed successfully"
+          },
+          "errors": {
+            "type": "object",
+            "example": {
+              "email": "Invalid email"
+            }
+          },
+          "page": {
+            "type": "number",
+            "example": 1
+          },
+          "limit": {
+            "type": "number",
+            "example": 10
+          },
+          "totalCount": {
+            "type": "number",
+            "example": 100
+          }
+        },
+        "required": [
+          "success",
+          "data",
+          "page",
+          "limit",
+          "totalCount"
+        ]
+      },
+      "CreateUserDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User email address",
+            "format": "email",
+            "example": "newuser@ukmashop.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "User password (min 8 chars, at least 1 number)",
+            "format": "password",
+            "example": "Password123"
+          },
+          "firstName": {
+            "type": "string",
+            "description": "First name",
+            "example": "John"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Last name",
+            "example": "Doe"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Phone number",
+            "example": "+1234567890"
+          },
+          "role": {
+            "type": "string",
+            "description": "User role (admin, user, manager). Only assignable by admin",
+            "enum": [
+              "User",
+              "Admin",
+              "Manager"
+            ],
+            "example": "User"
+          }
+        },
+        "required": [
+          "email",
+          "password",
+          "firstName",
+          "lastName"
+        ]
+      },
+      "UpdateUserDto": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "description": "First name",
+            "example": "John"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Last name",
+            "example": "Doe"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Phone number",
+            "example": "+1234567890"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email address",
+            "format": "email",
+            "example": "user@ukmashop.com"
+          },
+          "role": {
+            "type": "string",
+            "description": "User role (admin, user, manager). Only assignable by admin",
+            "enum": [
+              "User",
+              "Admin",
+              "Manager"
+            ]
+          }
+        }
+      },
+      "ProductEntity": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the product (UUID v4)",
+            "example": "550e8400-e29b-41d4-a716-446655440000"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the product",
+            "example": "Apple iPhone 15"
+          },
+          "skuNumber": {
+            "type": "string",
+            "description": "SKU number (Stock Keeping Unit) for inventory management",
+            "example": "FS-8571954"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Date and time when the product was created",
+            "example": "2026-02-15T21:30:00Z"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Date and time when the product was last updated",
+            "example": "2026-02-15T21:45:00Z"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "skuNumber",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "OrderEntity": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the order (UUID v4)",
+            "example": "550e8400-e29b-41d4-a716-446655440000"
+          },
+          "userId": {
+            "type": "string",
+            "description": "Identifier of the user who placed the order",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "status": {
+            "type": "string",
+            "description": "Status of the order",
+            "example": "Pending"
+          },
+          "tax": {
+            "type": "string",
+            "description": "Tax amount applied to the order",
+            "example": "5.50"
+          },
+          "shippingCost": {
+            "type": "string",
+            "description": "Shipping cost of the order",
+            "example": "10.00"
+          },
+          "shippingAddress": {
+            "type": "string",
+            "description": "Shipping address for the order",
+            "example": "123 Main St, Kyiv, Ukraine"
+          },
+          "billingAddress": {
+            "type": "string",
+            "description": "Billing address for the order",
+            "example": "123 Main St, Kyiv, Ukraine"
+          },
+          "notes": {
+            "type": "object",
+            "description": "Additional notes for the order",
+            "example": "Leave package at the front door"
+          },
+          "trackingNumber": {
+            "type": "object",
+            "description": "Tracking number for the order shipment",
+            "example": "TRACK123456789"
+          },
+          "estimatedDelivery": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Estimated delivery date of the order",
+            "example": "2026-02-20T12:00:00Z"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Date and time when the order was created",
+            "example": "2026-02-15T21:30:00Z"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Date and time when the order was last updated",
+            "example": "2026-02-15T21:45:00Z"
+          },
+          "products": {
+            "description": "Products included in the order with quantity and price details",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductToOrderEntity"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "userId",
+          "status",
+          "tax",
+          "shippingCost",
+          "shippingAddress",
+          "billingAddress",
+          "notes",
+          "trackingNumber",
+          "estimatedDelivery",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "ProductToOrderEntity": {
+        "type": "object",
+        "properties": {
+          "productId": {
+            "type": "string",
+            "description": "Identifier of the product included in the order",
+            "example": "550e8400-e29b-41d4-a716-446655440000"
+          },
+          "orderId": {
+            "type": "string",
+            "description": "Identifier of the order containing the product",
+            "example": "a1b2c3d4-e5f6-7890-1234-56789abcdef0"
+          },
+          "quantity": {
+            "type": "number",
+            "description": "Quantity of the product in the order",
+            "example": 2
+          },
+          "price": {
+            "type": "string",
+            "description": "Price of a single unit of the product in the order",
+            "example": "19.99"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Date and time when the relation was created",
+            "example": "2026-02-15T21:30:00Z"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Date and time when the relation was last updated",
+            "example": "2026-02-15T21:45:00Z"
+          },
+          "product": {
+            "description": "The product included in the order",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ProductEntity"
+              }
+            ]
+          },
+          "order": {
+            "description": "The order that includes the product",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/OrderEntity"
+              }
+            ]
+          }
+        },
+        "required": [
+          "productId",
+          "orderId",
+          "quantity",
+          "price",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "CreateOrderProductDto": {
+        "type": "object",
+        "properties": {
+          "productId": {
+            "type": "string",
+            "description": "ID of the product being added to the order",
+            "example": "550e8400-e29b-41d4-a716-446655440000"
+          },
+          "quantity": {
+            "type": "number",
+            "description": "Quantity of the product in the order",
+            "example": 2
+          },
+          "price": {
+            "type": "string",
+            "description": "Price of the product at the time of order",
+            "example": "15.50"
+          }
+        },
+        "required": [
+          "productId",
+          "quantity",
+          "price"
+        ]
+      },
+      "CreateOrderDto": {
+        "type": "object",
+        "properties": {
+          "shippingAddress": {
+            "type": "string",
+            "description": "Shipping address for the order",
+            "example": "123 Main St, Kyiv, Ukraine"
+          },
+          "billingAddress": {
+            "type": "string",
+            "description": "Billing address for the order",
+            "example": "123 Main St, Kyiv, Ukraine"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Additional notes for the order",
+            "example": "Leave package at the front door"
+          },
+          "estimatedDelivery": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Estimated delivery date of the order",
+            "example": "2026-02-20T12:00:00Z"
+          },
+          "tax": {
+            "type": "string",
+            "description": "Tax amount applied to the order",
+            "example": "5.50"
+          },
+          "shippingCost": {
+            "type": "string",
+            "description": "Shipping cost of the order",
+            "example": "10.00"
+          },
+          "products": {
+            "description": "Products included in the order",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CreateOrderProductDto"
+            }
+          }
+        },
+        "required": [
+          "shippingAddress",
+          "billingAddress",
+          "estimatedDelivery",
+          "tax",
+          "shippingCost",
+          "products"
+        ]
+      },
+      "UpdateOrderDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "New status of the order",
+            "enum": [
+              "Pending",
+              "Processing",
+              "Shipped",
+              "Delivered",
+              "Cancelled"
+            ],
+            "example": "Shipped"
+          },
+          "shippingAddress": {
+            "type": "string",
+            "description": "New shipping address",
+            "example": "456 Another St, Kyiv, Ukraine"
+          },
+          "billingAddress": {
+            "type": "string",
+            "description": "New billing address",
+            "example": "456 Another St, Kyiv, Ukraine"
+          },
+          "trackingNumber": {
+            "type": "object",
+            "description": "Tracking number for the order shipment",
+            "example": "TRACK123456789"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Updated notes for the order",
+            "example": "Leave package at the back door"
+          }
+        }
+      }
+    }
+  }
+}

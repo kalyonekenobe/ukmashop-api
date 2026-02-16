@@ -1,0 +1,93 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRoles {
+  User
+  Admin
+  Manager
+}
+
+enum OrderStatuses {
+  Pending
+  Processing
+  Shipped
+  Delivered
+  Cancelled
+}
+
+model User {
+  id           String    @id @default(uuid()) @db.Uuid
+  email        String    @unique @db.VarChar(255)
+  password     String    @db.Text
+  firstName    String    @db.VarChar(255)
+  lastName     String    @db.VarChar(255)
+  role         UserRoles @default(User)
+  phone        String?   @db.VarChar(255)
+  refreshToken String?   @db.Text
+  isActive     Boolean   @default(true) @db.Boolean
+  createdAt    DateTime  @default(now()) @db.Timestamptz
+  updatedAt    DateTime  @updatedAt @db.Timestamptz
+
+  orders Order[]
+
+  @@index([email, role, isActive])
+}
+
+model Order {
+  id                String        @id @default(uuid()) @db.Uuid
+  userId            String        @db.Uuid
+  status            OrderStatuses @default(Pending)
+  tax               Decimal       @db.Money
+  shippingCost      Decimal       @db.Money
+  shippingAddress   String        @db.VarChar(255)
+  billingAddress    String        @db.VarChar(255)
+  notes             String?       @db.Text
+  trackingNumber    String?       @db.VarChar(255)
+  estimatedDelivery DateTime      @db.Timestamptz
+  createdAt         DateTime      @default(now()) @db.Timestamptz
+  updatedAt         DateTime      @updatedAt @db.Timestamptz
+
+  user             User             @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: Cascade)
+  productsToOrders ProductToOrder[]
+
+  @@index([userId])
+}
+
+model Product {
+  id        String   @id @default(uuid()) @db.Uuid
+  name      String   @unique @db.VarChar(255)
+  skuNumber String   @db.VarChar(255)
+  createdAt DateTime @default(now()) @db.Timestamptz
+  updatedAt DateTime @updatedAt @db.Timestamptz
+
+  productsToOrders ProductToOrder[]
+
+  @@index([name, skuNumber])
+}
+
+model ProductToOrder {
+  productId String   @db.Uuid
+  orderId   String   @db.Uuid
+  quantity  Int      @db.Integer
+  price     Decimal  @db.Money
+  createdAt DateTime @default(now()) @db.Timestamptz
+  updatedAt DateTime @updatedAt @db.Timestamptz
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@id([productId, orderId])
+  @@index([quantity, price])
+}
