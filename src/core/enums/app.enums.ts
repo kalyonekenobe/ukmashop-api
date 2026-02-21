@@ -32,6 +32,7 @@ export enum Routes {
   Auth = 'auth',
   Users = 'users',
   Orders = 'orders',
+  Sse = 'sse',
 }
 
 export enum LogLevels {

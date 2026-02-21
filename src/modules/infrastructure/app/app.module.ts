@@ -16,8 +16,8 @@ import { buildJwtModuleOptions } from 'src/modules/infrastructure/jwt/jwt.consta
 import { buildConfigModuleOptions } from 'src/modules/infrastructure/config/config.constants';
 import { AuthModule } from 'src/modules/auth/auth.module';
 import { OrderModule } from 'src/modules/order/order.module';
+import { SseModule } from 'src/modules/sse/sse.module';
 import { ScheduleModule } from '@nestjs/schedule';
-import { CodeJudgeModule } from 'src/modules/codejudge/codejudge.module';
 
 @Module({
   imports: [
@@ -44,7 +44,7 @@ import { CodeJudgeModule } from 'src/modules/codejudge/codejudge.module';
     AuthModule,
     UserModule,
     OrderModule,
-    CodeJudgeModule,
+    SseModule,
   ],
   providers: [
     {

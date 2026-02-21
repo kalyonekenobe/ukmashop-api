@@ -37,7 +37,6 @@ import {
 import { AUTH_CONTROLLER_MESSAGES } from 'src/modules/auth/auth.constants';
 import { ValidationExceptionFilter } from 'src/core/filters/validation.filter';
 import { LoginDto } from 'src/modules/auth/DTO/login.dto';
-import { throwRandomException } from 'src/modules/infrastructure/app/utils/app.utils';
 
 @ApiTags(RoutesApiTags[Routes.Auth])
 @Controller(Routes.Auth)
@@ -79,8 +78,6 @@ export class AuthController {
   public async user(
     @AuthenticatedUser() authenticatedUser: UserPublicEntity,
   ): Promise<ApiResponseEntity<UserPublicEntity>> {
-    throwRandomException(0.2);
-
     return {
       success: true,
       message: AUTH_CONTROLLER_MESSAGES.GET_AUTHENTICATED_USER.USER_SUCCESSFULLY_FETCHED.EN,
@@ -115,8 +112,6 @@ export class AuthController {
     @Body() loginDto: LoginDto,
     @Res() response: Response,
   ): Promise<Response<ApiResponseEntity<UserPublicEntity>>> {
-    throwRandomException(0.2);
-
     const { accessToken, refreshToken, ...user } = await this.authService.login(loginDto);
 
     return response
@@ -182,8 +177,6 @@ export class AuthController {
     @Req() request: Request,
     @Res() response: Response,
   ): Promise<Response<ApiResponseEntity<UserPublicEntity>>> {
-    throwRandomException(0.2);
-
     const { accessToken, refreshToken } = await this.authService.refresh(
       request.cookies[
         this.configService.get<string>(ConfigVariables.CookieRefreshTokenName) ||
@@ -253,8 +246,6 @@ export class AuthController {
     @AuthenticatedUser() authenticatedUser: UserPublicEntity,
     @Res() response: Response,
   ): Promise<Response<ApiResponseEntity<UserPublicEntity>>> {
-    throwRandomException(0.2);
-
     const user = await this.authService.logout(authenticatedUser.id);
 
     return response

@@ -1393,6 +1393,20 @@
           "Orders"
         ]
       }
+    },
+    "/api/v1/sse/orders": {
+      "get": {
+        "operationId": "SseController_orderEvents",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "SSE"
+        ]
+      }
     }
   },
   "info": {

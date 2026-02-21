@@ -43,7 +43,6 @@ import {
 import { ValidationExceptionFilter } from 'src/core/filters/validation.filter';
 import { AuthenticatedUser } from 'src/core/decorators/authenticated-user.decorator';
 import { UserPublicEntity } from 'src/modules/user/entities/user-public.entity';
-import { throwRandomException } from 'src/modules/infrastructure/app/utils/app.utils';
 
 @ApiTags(RoutesApiTags[Routes.Orders])
 @Controller(Routes.Orders)
@@ -86,8 +85,6 @@ export class OrderController {
     @Query(new ValidationPipe({ transform: true }))
     query: FindAllOrdersQueryDto,
   ): Promise<PaginatedApiResponseEntity<OrderEntity>> {
-    throwRandomException(0.2);
-
     return this.orderService.findAll(query);
   }
 
@@ -132,8 +129,6 @@ export class OrderController {
     @Query(new ValidationPipe({ transform: true }))
     query: FindOneOrderQueryDto,
   ): Promise<ApiResponseEntity<OrderEntity>> {
-    throwRandomException(0.2);
-
     const order = await this.orderService.findOneOrThrow({ id, ...query });
 
     return {
@@ -179,8 +174,6 @@ export class OrderController {
     @Body() data: CreateOrderDto,
     @AuthenticatedUser() user: UserPublicEntity,
   ): Promise<ApiResponseEntity<OrderEntity>> {
-    throwRandomException(0.2);
-
     const order = await this.orderService.create(data, user);
 
     return {
@@ -235,8 +228,6 @@ export class OrderController {
     @Param('id') id: OrderEntity['id'],
     @Body() data: UpdateOrderDto,
   ): Promise<ApiResponseEntity<OrderEntity>> {
-    throwRandomException(0.2);
-
     const updatedOrder = await this.orderService.update(id, data);
 
     return {
@@ -283,8 +274,6 @@ export class OrderController {
   })
   @Delete(':id')
   public async remove(@Param('id') id: OrderEntity['id']): Promise<ApiResponseEntity<OrderEntity>> {
-    throwRandomException(0.2);
-
     const removedOrder = await this.orderService.remove(id);
 
     return {

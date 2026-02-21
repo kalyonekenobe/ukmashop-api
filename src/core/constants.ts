@@ -4,4 +4,5 @@ export const RoutesApiTags = {
   [Routes.Auth]: 'Auth',
   [Routes.Users]: 'Users',
   [Routes.Orders]: 'Orders',
+  [Routes.Sse]: 'SSE',
 };

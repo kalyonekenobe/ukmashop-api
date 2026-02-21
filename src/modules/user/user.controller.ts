@@ -47,7 +47,6 @@ import {
 } from 'src/modules/user/DTO/user-query.dto';
 import { ValidationExceptionFilter } from 'src/core/filters/validation.filter';
 import { OrderEntity } from 'src/modules/order/entities/order.entity';
-import { throwRandomException } from 'src/modules/infrastructure/app/utils/app.utils';
 
 @ApiTags(RoutesApiTags[Routes.Users])
 @Controller(Routes.Users)
@@ -89,8 +88,6 @@ export class UserController {
   public async findAll(
     @Query(new ValidationPipe({ transform: true })) query: FindAllUsersPrivateQueryDto,
   ): Promise<PaginatedApiResponseEntity<UserPublicEntity>> {
-    throwRandomException(0.2);
-
     return this.userService.findAllPrivate(query);
   }
 
@@ -135,8 +132,6 @@ export class UserController {
     @Param('id') id: UserPublicEntity['id'],
     @Query(new ValidationPipe({ transform: true })) query: FindOneUserPrivateQueryDto,
   ): Promise<ApiResponseEntity<UserPublicEntity>> {
-    throwRandomException(0.2);
-
     const user = await this.userService.findOneOrThrowPrivate({ id, ...query });
 
     return {
@@ -179,8 +174,6 @@ export class UserController {
   @ApiConsumes('application/json')
   @Post()
   public async create(@Body() data: CreateUserDto): Promise<ApiResponseEntity<UserPublicEntity>> {
-    throwRandomException(0.2);
-
     const user = await this.userService.create(data);
 
     return {
@@ -235,8 +228,6 @@ export class UserController {
     @Param('id') id: UserPublicEntity['id'],
     @Body() data: UpdateUserDto,
   ): Promise<ApiResponseEntity<UserPublicEntity>> {
-    throwRandomException(0.2);
-
     const updatedUser = await this.userService.updatePrivate(id, data);
 
     return {
@@ -285,8 +276,6 @@ export class UserController {
   public async remove(
     @Param('id') id: UserPublicEntity['id'],
   ): Promise<ApiResponseEntity<UserPublicEntity>> {
-    throwRandomException(0.2);
-
     const removedUser = await this.userService.remove(id);
 
     return {
@@ -341,8 +330,6 @@ export class UserController {
     @Query(new ValidationPipe({ transform: true }))
     query: FindAllUserOrdersQueryDto,
   ): Promise<PaginatedApiResponseEntity<OrderEntity>> {
-    throwRandomException(0.2);
-
     return this.userService.findAllUserOrders(id, query);
   }
 }
